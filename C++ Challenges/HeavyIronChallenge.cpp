@@ -139,22 +139,22 @@ void FizzBuzz(const int32_t value, char* output)
 	//Adds the number if applicable.
 	if (!*output)
 	{
-	    if(val >= 10000)
+	    if(value >= 10000)
 	    {
-		if(val >= 10000000)
+		if(value >= 10000000)
 		{
-		    if(val >= 1000000000)
+		    if(value >= 1000000000)
 			size = 10;
-		    else if(val >= 100000000)
+		    else if(value >= 100000000)
 			size = 9;
 		    else 
 			size = 8;
 		}
 		else
 		{
-		    if(val >= 1000000)
+		    if(value >= 1000000)
 			size = 7;
-		    else if(val >= 100000)
+		    else if(value >= 100000)
 			size = 6;
 		    else
 			size = 5;
@@ -162,16 +162,16 @@ void FizzBuzz(const int32_t value, char* output)
 	    }
 	    else 
 	    {
-		if(val >= 100)
+		if(value >= 100)
 		{
-		    if(val >= 1000)
+		    if(value >= 1000)
 			size = 4;
 		    else
 			size = 3;
 		}
 		else
 		{
-		    if(val >= 10)
+		    if(value >= 10)
 			size = 2;
 		    else
 			size = 1;
