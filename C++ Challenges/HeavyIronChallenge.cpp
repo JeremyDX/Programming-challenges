@@ -61,12 +61,6 @@ struct Vector3
 
 static const float RADIAN_PI = 3.14159265f / 180.0f;
 
-static const uint64_t POW10_N[20] =
-{
-	1, 1, 10, 100, 1000, 10000, 100000,
-	1000000, 10000000, 100000000, 1000000000
-};
-
 /*
  * @usage - Returns my name and date :)
  */
@@ -114,12 +108,13 @@ void SortOddEven(int* numbers, const int count)
  * @usage - If value is divisable by 3 it'll write Fizz, by 5 it'll write Buzz, Otherwise it'll write the number.
  * @regards - Not going to test speed i know these are the general fast methods and simple ways to calculate this problem.
  */
-void FizzBuzz(const int value, char* output)
+void FizzBuzz(const int32_t value, char* output)
 {
-	//Possible Usage In Future Better Than Boolean.
-	int8_t word = 0;
+	int32_t sign = -(value < 0);
+    	value = (value ^ sign) - sign;
 
-
+	*output = NULL;
+	
 	//Adds Fizz or Buzz if applicable.
 	if (value % 3 == 0)
 	{
@@ -127,87 +122,78 @@ void FizzBuzz(const int value, char* output)
 		*output++ = 'i';
 		*output++ = 'z';
 		*output++ = 'z';
-		word = true;
+		*output = 1;
 	}
+	
 	if (value % 5 == 0)
 	{
 		*output++ = 'B';
 		*output++ = 'u';
 		*output++ = 'z';
 		*output++ = 'z';
-		word = true;
+		*output = 1;
 	}
+	
+	int len = 0;
 
 	//Adds the number if applicable.
-	if (!word)
+	if (!*output)
 	{
-		uint64_t number = value;
-		int neg = value < 0;
-		if (neg)
-			number = -value;
-		int len = 0;
-		if (number >= 1000000) {
-			if (number >= 100000000) {
-				if (number >= 1000000000) {
-					len = 10;
-				}
-				else {
-					len = 9;
-				}
-			}
-			else {
-				if (number >= 10000000) {
-					len = 8;
-				}
-				else {
-					len = 7;
-				}
-			}
-		}
-		else {
-			if (number >= 1000) {
-				if (number >= 10000) {
-					if (number >= 100000) {
-						len = 6;
-					}
-					else {
-						len = 5;
-					}
-				}
-				else {
-					len = 4;
-				}
-			}
-			else {
-				if (number >= 10) {
-					if (number >= 100) {
-						len = 3;
-					}
-					else {
-						len = 2;
-					}
-				}
-				else {
-					len = 1;
-				}
-			}
-		}
-
-		if (neg)
-			*output++ = '-';
-
-		uint64_t reduction = POW10_N[len];
-
-		for (; --len >= 0; )
+	    if(val >= 10000)
+	    {
+		if(val >= 10000000)
 		{
-			int c_value = (int)(number / reduction);
-			number -= reduction * c_value;
-			*output++ = 48 + c_value;
-			reduction = POW10_N[len];
+		    if(val >= 1000000000)
+			size = 10;
+		    else if(val >= 100000000)
+			size = 9;
+		    else 
+			size = 8;
 		}
+		else
+		{
+		    if(val >= 1000000)
+			size = 7;
+		    else if(val >= 100000)
+			size = 6;
+		    else
+			size = 5;
+		}
+	    }
+	    else 
+	    {
+		if(val >= 100)
+		{
+		    if(val >= 1000)
+			size = 4;
+		    else
+			size = 3;
+		}
+		else
+		{
+		    if(val >= 10)
+			size = 2;
+		    else
+			size = 1;
+		}
+	    }
+	}
+	
+	if (sign)
+	{
+		buffer[0] = '-';
+		++len;
 	}
 
-	*output = NULL;
+	buffer[len] = 0;
+	while (--len >= 0)
+	{
+		uint32_t c_value = (uint64_t)(value * 0.1);
+		buffer[len] = (char)(48 + (value - c_value * 10));
+		value = c_value;
+	}
+
+	*buffer = NULL;
 }
 
 /*
